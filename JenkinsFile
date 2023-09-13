@@ -37,7 +37,7 @@ pipeline {
         stage('Plan') {
             steps {
                 sh "terraform init"
-                sh "terraform plan -out tfplan"
+                sh "terraform plan -out tfplan -var 'instance_count=${params.instanceCount}'"
                 sh "terraform show -no-color tfplan > tfplan.txt"
             }
         }
@@ -64,7 +64,7 @@ pipeline {
                     echo "terraform action is --> ${terraformAction}"
 
                      if (terraformAction == 'apply') {
-                         sh "terraform apply -input=false -var 'instance_count=${instanceCount}' tfplan"
+                         sh "terraform apply -input=false -var 'instance_count=${params.instanceCount}' tfplan"
                      } else if (terraformAction == 'destroy') {
                          sh "terraform destroy -input=false -auto-approve"
                      } else {
