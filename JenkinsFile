@@ -17,7 +17,7 @@ pipeline {
                      def repoUrl = ''
                      def subDirectory = ''
                     if (params.awsService == 'EC2') {
-                        repoUrl = "https://github.com/Hariprasadchellamuthu/Terraform1.git"
+                        repoUrl = "https://github.com/Hariprasadchellamuthu/Scalable_terraform.git"
                         subDirectory = 'ec2'
                     } else if (params.awsService == 'S3') {
                                repoUrl =  "https://github.com/Hariprasadchellamuthu/Terraform2.git"
