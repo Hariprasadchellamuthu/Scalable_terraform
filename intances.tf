@@ -3,7 +3,8 @@ provider "aws" {
 }
 
 resource "aws_instance" "foo" {
-  ami           = "ami-053b0d53c279acc90" 
+  count         = var.instance_count
+  ami           = lookup(var.ami, var.aws_region)
   instance_type = var.instance_type
   tags = {
       Name = "TF-Instance-$ {count.index + 1}"
