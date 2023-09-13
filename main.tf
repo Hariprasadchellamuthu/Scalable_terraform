@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "foo" {
-  count = var.aws_service == "EC2" ? var.instance_count : 0
+  count = var.instance_count
   ami           = lookup(var.ami, var.aws_region)
   instance_type = var.instance_type
   tags = {
