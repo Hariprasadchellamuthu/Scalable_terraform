@@ -69,7 +69,7 @@ pipeline {
                          def instanceCount = Integer.parseInt(params.instanceCount)
                          withEnv(["TF_APPROVE=true"]) {
                              for (int i = 1; i <= instanceCount; i++) {
-                                sh "terraform destroy -input=false -target=TF-Instance-[${i - 1}]"
+                                sh "terraform destroy -input=false -target=aws_instance.foo[${i - 1}]"
                              }
                         }
                      } else {
