@@ -67,7 +67,7 @@ pipeline {
                          sh "terraform apply -input=false tfplan"
                      } else if (terraformAction == 'destroy') {
                          def instanceCount = Integer.parseInt(params.instanceCount)
-                         withEnv(["TF_APPROVE=true"]) {
+                         withEnv(["TF_APPROVE=${params.autoApprove ? 'true' : 'false'}"]) {
                              for (int i = 1; i <= instanceCount; i++) {
                                 sh "terraform destroy -input=false -target=aws_instance.foo[${i - 1}]"
                              }
