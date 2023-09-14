@@ -7,6 +7,6 @@ resource "aws_instance" "foo" {
   ami           = lookup(var.ami, var.aws_region)
   instance_type = var.instance_type
   tags = {
-      Name = "TF-Instance-$ {count.index + 1}"
+      Name = "TF-Instance-${count.index + 1}"
   }
 }
