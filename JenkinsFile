@@ -67,9 +67,11 @@ pipeline {
                          sh "terraform apply -input=false tfplan"
                      } else if (terraformAction == 'destroy') {
                          def instanceCount = Integer.parseInt(params.instanceCount)
-                         for (int i = 1; i <= instanceCount; i++) {
-                            sh "terraform destroy -input=false -target=aws_instance.foo[${i - 1}]"
-                         }
+                         withEnv(["TF_APPROVE=true"]) {
+                             for (int i = 1; i <= instanceCount; i++) {
+                                sh "terraform destroy -input=false -target=aws_instance.foo[${i - 1}]"
+                             }
+                        }
                      } else {
                          error("Invalid action selected: ${terraformAction}")
                       }
