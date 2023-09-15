@@ -37,7 +37,7 @@ pipeline {
         stage('Plan') {
             steps {
                 sh "terraform init"
-                sh "terraform plan -out tfplan"
+                sh "terraform plan -out tfplan -var 'instance_count=${params.instanceCount}'"
                 sh "terraform show -no-color tfplan > tfplan.txt"
             }
         }
