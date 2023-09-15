@@ -64,7 +64,7 @@ pipeline {
                     echo "terraform action is --> ${terraformAction}"
 
                      if (terraformAction == 'apply') {
-                         sh "terraform apply -input=false tfplan"
+                         sh "terraform apply -input=false tfplan -var 'instance_count=${params.instanceCount}'"
                      } else if (terraformAction == 'destroy') {
                          sh "terraform destroy -input=false -auto-approve -var 'instance_count=${params.instanceCount}'"
                      } else {
