@@ -37,7 +37,7 @@ pipeline {
         stage('Plan') {
             steps {
                 sh "terraform init"
-                sh "terraform plan -out tfplan -var 'instance_count=${params.instanceCount}'"
+                sh "terraform plan -out tfplan"
                 sh "terraform show -no-color tfplan > tfplan.txt"
             }
         }
@@ -66,12 +66,7 @@ pipeline {
                      if (terraformAction == 'apply') {
                          sh "terraform apply -input=false tfplan"
                      } else if (terraformAction == 'destroy') {
-                         def instanceCount = Integer.parseInt(params.instanceCount)
-                         withEnv(["TF_APPROVE=${params.autoApprove ? 'true' : 'false'}"]) {
-                             for (int i = 1; i <= instanceCount; i++) {
-                                sh "terraform destroy -input=false -target=aws_instance.foo[${i - 1}]"
-                             }
-                        }
+                         sh "terraform destroy -input=false -auto-approve -var 'instance_count=${params.instanceCount}'"
                      } else {
                          error("Invalid action selected: ${terraformAction}")
                       }
