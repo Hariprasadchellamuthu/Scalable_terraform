@@ -69,7 +69,7 @@ pipeline {
                          def instanceCount = params.instanceCount.toInteger()
                          for (int i = 1; i <= instanceCount; i++) {
                              def targetResourceName = "TF-Instance-${i}"
-                             sh "terraform destroy -input=false -auto-approve -target=aws_instance.foo[${targetResourceName}]"
+                             sh "terraform destroy -input=false -auto-approve -target=aws_instance.foo[${i - 1}]"
                          }
                      } else {
                          error("Invalid action selected: ${terraformAction}")
