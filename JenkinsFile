@@ -66,7 +66,7 @@ pipeline {
                      if (terraformAction == 'apply') {
                          sh "terraform apply -input=false tfplan"
                      } else if (terraformAction == 'destroy') {
-                         sh "terraform destroy -input=false -auto-approve -target=aws_instance.foo[${'TF-Instance-'params.instanceCount}]"
+                         sh "terraform destroy -input=false -auto-approve -target=aws_instance.foo[TF-Instance-${params.instanceCount}]"
                      } else {
                          error("Invalid action selected: ${terraformAction}")
                       }
