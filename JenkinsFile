@@ -4,7 +4,7 @@ pipeline {
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
         choice(name: 'awsService', choices: ['EC2', 'S3'], description: 'Select AWS Service to Create')
         choice(name: 'action', choices: ['apply', 'destroy'], description: 'Select the action')
-        choice(name: 'instanceCount', choices: ['1', '2', '3', '4', '5'], description:'Enter the count of instance to create')
+        choice(name: 'instanceCount', choices: ['1', '2', '3', '4', '5'], description:'Select the count of instance to create')
     } 
     environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
