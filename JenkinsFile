@@ -69,9 +69,9 @@ pipeline {
                          def instanceCount = params.instanceCount.toInteger()
                          for (int i = 1; i <= instanceCount; i++) {
                              if (params.awsService == 'EC2') {
-                                 sh "terraform destroy -input=false -auto-approve -target=aws_instance.foo[${i}]"
+                                 sh "terraform destroy -input=false -auto-approve -target=aws_instance.foo[${i-1}]"
                              } else if (params.awsService == 'S3') {
-                                        sh "terraform destroy -input=false -auto-approve -target=aws_s3_bucket.my_bucket[${i}]"
+                                        sh "terraform destroy -input=false -auto-approve -target=aws_s3_bucket.my_bucket[${i-1}]"
                              } 
                          }   
                      } else {
