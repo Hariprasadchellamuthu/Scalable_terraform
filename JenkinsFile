@@ -67,11 +67,11 @@ pipeline {
                          sh "terraform apply -input=false tfplan"
                      } else if (terraformAction == 'destroy') {
                          def instanceCount = params.instanceCount.toInteger()
-                         for (int i = 1; i <= instanceCount; i++) {
+                         for (int i = 0; i <= instanceCount; i++) {
                              if (params.awsService == 'EC2') {
-                                 sh "terraform destroy -input=false -auto-approve -target=aws_instance.foo[${i-1}]"
+                                 sh "terraform destroy -input=false -auto-approve -target=aws_instance.foo[${i}]"
                              } else if (params.awsService == 'S3') {
-                                        sh "terraform destroy -input=false -auto-approve -target=aws_s3_bucket.my_bucket[${i-1}]"
+                                        sh "terraform destroy -input=false -auto-approve -target=aws_s3_bucket.my_bucket[${i}]"
                              } 
                          }   
                      } else {
