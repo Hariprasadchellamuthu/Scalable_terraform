@@ -70,10 +70,10 @@ pipeline {
                          for (int i = 1; i <= instanceCount; i++) {
                              if (params.awsService == 'EC2') {
                                  def targetResourceName = "TF-Instance-${i}"
-                                 sh "terraform destroy -input=false -auto-approve -target=aws_instance.foo[${i - 1}]"
+                                 sh "terraform destroy -input=false -auto-approve -target=targetResourceName"
                              } else if (params.awsService == 'S3') {
                                         def targetResourceName = "my-terraform565-bucket8687-${i}"
-                                        sh "terraform destroy -input=false -auto-approve -target=aws_s3_bucket.my_bucket[${i - 1}]"
+                                        sh "terraform destroy -input=false -auto-approve -target=targetResourceName"
                              } 
                          }   
                      } else {
