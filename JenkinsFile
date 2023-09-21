@@ -37,10 +37,12 @@ pipeline {
 
         stage('Plan') {
             steps {
+                script {
                 def instanceSize = params.instanceSize
                 sh "terraform init"
                 sh "terraform plan -out tfplan -var 'instance_count=${params.instanceCount}' -var 'instance_type=${instanceSize}'"
                 sh "terraform show -no-color tfplan > tfplan.txt"
+              }
             }
         }
         stage('Approval') {
