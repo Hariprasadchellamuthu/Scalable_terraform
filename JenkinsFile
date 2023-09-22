@@ -37,9 +37,16 @@ pipeline {
 
         stage('Plan') {
             steps {
-                sh "terraform init"
-                sh "terraform plan -out tfplan -var 'instance_count=${params.instanceCount}' -var 'instance_type=${params.instanceSize}'"
-                sh "terraform show -no-color tfplan > tfplan.txt"
+                script{
+                    if (params.awsService == 'EC2') {
+                        sh "terraform init"
+                        sh "terraform plan -out tfplan -var 'instance_count=${params.instanceCount}' -var 'instance_type=${params.instanceSize}'"
+                        sh "terraform show -no-color tfplan > tfplan.txt"
+                } else if (params.awsService == 'S3') {
+                            sh "terraform init"
+                            sh "terraform plan -out tfplan -var 'instance_count=${params.instanceCount}'"
+                            sh "terraform show -no-color tfplan > tfplan.txt"
+                }
             }
         }
         stage('Approval') {
